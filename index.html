@@ -404,6 +404,45 @@
       line-height: 20px;
     }
 
+    /* ── Hint tooltip ── */
+    .hint-tip {
+      position: relative;
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b7485;
+      line-height: 20px;
+      white-space: nowrap;
+      cursor: default;
+    }
+    .hint-tip-text {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f1621;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 18px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      width: 280px;
+      white-space: normal;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .hint-tip-text::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #0f1621;
+    }
+    .hint-tip:hover .hint-tip-text { display: block; }
+
     /* ── Home header breadcrumb override ── */
     .bc-home-active {
       color: #9ba3b3;
@@ -826,6 +865,7 @@
       <!-- Disclosure -->
       <div style="display:flex;align-items:center;gap:12px;">
         <p class="disclosure">Funds in an HSA Deposit Account are held at UMB Bank, n.a., Member FDIC.</p>
+        <span class="hint-tip">Demo guide<span class="hint-tip-text">If you select the first answer for every question, your identity is verified instantly — no document upload needed. If you select the last answer for every question, you'll be directed to upload an identity document instead.</span></span>
         <button id="restartBtn" onclick="restartFlow()" style="display:none;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#6b7485;padding:0;white-space:nowrap;line-height:20px;">Restart</button>
       </div>
 
