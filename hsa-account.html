@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Health Savings Account</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+
+    /* ── Page title row ── */
+    .hsa-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .more-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 40px;
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #b8bfcc;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f1621;
+      cursor: pointer;
+    }
+
+    /* ── Shared section wrapper ── */
+    .hsa-section {
+      background: #f7f9fa;
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .hsa-section-subtitle {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    /* ── Account cards row ── */
+    .account-cards-row {
+      display: flex;
+      gap: 16px;
+      align-items: stretch;
+    }
+
+    /* Enrollment card */
+    .enrollment-card {
+      width: 336px;
+      flex-shrink: 0;
+      min-height: 244px;
+      background: #fff;
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      padding: 24px 24px 16px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+      overflow: hidden;
+    }
+    .enrollment-info-icon {
+      position: absolute;
+      top: 23px;
+      right: 23px;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .enrollment-hsa-icon {
+      width: 32px;
+      height: 32px;
+      position: relative;
+      z-index: 1;
+    }
+    .enrollment-watermark {
+      position: absolute;
+      left: 23px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 180px;
+      height: 180px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .enrollment-card-name {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 32px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      position: relative;
+      z-index: 1;
+    }
+    .enrollment-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      position: relative;
+      z-index: 1;
+    }
+    .enrollment-stat-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .enrollment-stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7485;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+    .enrollment-stat-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .enrollment-stat-value.large {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    /* Expense breakdown card */
+    .expense-card {
+      flex: 1;
+      background: #fff;
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .expense-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+      white-space: nowrap;
+    }
+    .expense-bar {
+      background: #e5e9f0;
+      border-radius: 6px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .expense-bar span {
+      font-size: 16px;
+      font-weight: 700;
+      color: #9ba3b3;
+    }
+
+    /* Eligible services */
+    .eligible-services {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7485;
+      line-height: 18px;
+    }
+    .eligible-services a {
+      color: #3f68ff;
+      text-decoration: none;
+    }
+
+    /* Enrollment status line */
+    .enrollment-status-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .enrollment-status-line {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 12px;
+      color: #6b7485;
+      line-height: 18px;
+    }
+    .status-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #0f1621;
+      line-height: 18px;
+    }
+    .status-badge {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 18px;
+    }
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      background: #0cad09;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-bullet {
+      width: 4px;
+      height: 4px;
+      background: #9ba3b3;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .enrollment-dates {
+      font-size: 12px;
+      font-weight: 400;
+      color: #6b7485;
+      line-height: 18px;
+    }
+    .enrollment-dates strong {
+      font-weight: 700;
+      color: #0f1621;
+    }
+    .enrollment-rollover {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7485;
+      line-height: 18px;
+    }
+
+    /* ── Activity section ── */
+    .activity-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+      flex-shrink: 0;
+    }
+    .activity-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .activity-filters {
+      display: flex;
+      gap: 12px;
+    }
+    .activity-filter {
+      height: 40px;
+      background: #e5e9f0;
+      border-radius: 8px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #9ba3b3;
+      cursor: default;
+    }
+    .activity-filter.search { width: 230px; }
+    .activity-filter.type { width: 160px; }
+    .activity-filter.period { width: 160px; }
+    .activity-filter svg, .activity-filter img { flex-shrink: 0; margin-left: auto; }
+    .activity-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .activity-empty img { width: 72px; height: 72px; }
+    .activity-empty-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+      text-align: center;
+    }
+    .activity-empty-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 22px;
+      text-align: center;
+    }
+
+    /* ── Demo guide tooltip (same as home page) ── */
+    .hint-tip {
+      position: relative;
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b7485;
+      line-height: 20px;
+      white-space: nowrap;
+      cursor: default;
+    }
+    .hint-tip-text {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0f1621;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 18px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      width: 280px;
+      white-space: normal;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .hint-tip-text::after {
+      content: '';
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: #0f1621;
+    }
+    .hint-tip:hover .hint-tip-text { display: block; }
+
+    @media (max-width: 768px) {
+      .account-cards-row { flex-direction: column; }
+      .enrollment-card { width: 100%; }
+      .activity-filters { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <a class="logo" href="index.html" style="text-decoration:none;"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></a>
+  <a class="nav-item" href="index.html">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item active" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <a class="back-btn" href="index.html">
+          <img src="assets/icons/back_arrow.svg" alt=""/>
+          Back
+        </a>
+        <div class="breadcrumb-pill">
+          <span class="brand-logo">
+            <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          </span>
+          <a href="index.html" style="color:#0f1621;font-weight:400;font-size:14px;text-decoration:none;">Elevate</a>
+          <span class="bc-sep">/</span>
+          <span class="bc-mid">My Accounts</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-current">HSA 2025 ($0.00)</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">
+          <img src="assets/icons/notifications.svg" alt="Notifications"/>
+          <div class="notif-dot"></div>
+        </div>
+        <div class="avatar">LS</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <!-- Page title -->
+      <div class="hsa-title-row">
+        <h1>Health Savings Account</h1>
+        <button class="more-btn">
+          More
+          <img src="assets/icons/more.svg" alt="" style="width:20px;height:20px;"/>
+        </button>
+      </div>
+
+      <!-- Account Details section -->
+      <div class="hsa-section">
+        <div class="hsa-section-subtitle">Account Details</div>
+
+        <div class="account-cards-row">
+          <!-- Enrollment card -->
+          <div class="enrollment-card">
+            <div class="enrollment-info-icon">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="9" stroke="#b8bfcc" stroke-width="1.5"/>
+                <path d="M10 9v5" stroke="#b8bfcc" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="10" cy="6.5" r="0.75" fill="#b8bfcc"/>
+              </svg>
+            </div>
+            <img class="enrollment-watermark" src="assets/images/hsa_watermark.svg" alt=""/>
+            <img class="enrollment-hsa-icon" src="assets/images/hsa_icon.svg" alt="HSA"/>
+            <div class="enrollment-card-name">Health Savings Account</div>
+            <div class="enrollment-stats">
+              <div class="enrollment-stat-row">
+                <span class="enrollment-stat-label">Election</span>
+                <span class="enrollment-stat-value">$0.00</span>
+              </div>
+              <div class="enrollment-stat-row">
+                <span class="enrollment-stat-label">Available balance</span>
+                <span class="enrollment-stat-value large">$0.00</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Expense Breakdown card -->
+          <div class="expense-card">
+            <div class="expense-card-header">
+              <span>Expense Breakdown</span>
+              <span>Total: $0.00</span>
+            </div>
+            <div class="expense-bar">
+              <span>0%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eligible services -->
+        <div class="eligible-services">
+          Eligible services covered by this account: Dental care and treatment, Dental supplies and devices, Orthodontia,… <a href="#">+25</a>
+        </div>
+
+        <!-- Enrollment status -->
+        <div class="enrollment-status-block">
+          <div class="enrollment-status-line">
+            <span class="status-label">Enrollment status:</span>
+            <span class="status-badge"><span class="status-dot"></span>Active</span>
+            <span class="status-bullet"></span>
+            <span class="enrollment-dates">Submit expenses with dates of service between <strong>01/16/2026 – 12/16/2026</strong> until <strong>12/31/2026</strong></span>
+          </div>
+          <div class="enrollment-rollover">Your plan offers rollover. Refer to your plan documents to see if the rollover applies to you.</div>
+        </div>
+      </div>
+
+      <!-- Activity section -->
+      <div class="hsa-section" style="gap:24px;">
+        <div class="activity-header">
+          <span class="activity-title">Activity</span>
+          <div class="activity-filters">
+            <div class="activity-filter search">
+              Search
+              <img src="assets/icons/search_disabled.svg" alt="" style="width:24px;height:24px;"/>
+            </div>
+            <div class="activity-filter type">
+              Type: All
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="#9ba3b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="activity-filter period">
+              Period: All
+              <img src="assets/icons/calendar_disabled.svg" alt="" style="width:24px;height:24px;"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="activity-empty">
+          <img src="assets/icons/no_activities.svg" alt="No activities"/>
+          <div class="activity-empty-title">There are no Activities yet</div>
+          <div class="activity-empty-sub">Activities will be added to this list as soon as you make your first spending.</div>
+        </div>
+      </div>
+
+      <!-- Footer: Demo guide + Restart -->
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span class="hint-tip">Demo guide<span class="hint-tip-text">If you select the first answer for every question, your identity is verified instantly — no document upload needed. If you select the last answer for every question, you'll be directed to upload an identity document instead.</span></span>
+        <button onclick="restartFlow()" style="background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#6b7485;padding:0;white-space:nowrap;line-height:20px;">Restart</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+<script>
+  function restartFlow() {
+    localStorage.removeItem('identityVerified');
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

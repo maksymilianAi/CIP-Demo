@@ -353,13 +353,162 @@
       flex-shrink: 0;
     }
     .enrollment-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 40px;
+      flex-shrink: 0;
+    }
+    .enrollment-header-title {
       font-size: 16px;
       font-weight: 700;
       color: #0f1621;
       line-height: 22px;
+    }
+    .view-all-btn {
       height: 40px;
+      padding: 10px 16px;
+      background: #fff;
+      border: 2px solid #3f68ff;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f1621;
+      cursor: pointer;
+    }
+
+    /* Enrollment card (post-verification) */
+    .enrollment-card-wrapper {
+      display: none;
+      flex-direction: column;
+      width: 336px;
+      padding-bottom: 18px;
+      position: relative;
+      isolation: isolate;
+    }
+    .enrollment-card-wrapper.visible { display: flex; }
+    .enroll-card {
+      background: #fff;
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      padding: 24px 24px 16px;
+      min-height: 244px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 16px;
+      overflow: hidden;
+      margin-bottom: -18px;
+      z-index: 2;
+    }
+    .enroll-card-info {
+      position: absolute;
+      top: 23px; right: 23px;
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 3;
+    }
+    .enroll-card-watermark {
+      position: absolute;
+      left: 23px; top: 50%;
+      transform: translateY(-50%);
+      width: 180px; height: 180px;
+      opacity: 0.12;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .enroll-card-icon { width: 32px; height: 32px; position: relative; z-index: 2; }
+    .enroll-card-name {
+      font-size: 24px; font-weight: 700; color: #0f1621;
+      line-height: 32px; overflow: hidden; text-overflow: ellipsis;
+      white-space: nowrap; position: relative; z-index: 2;
+    }
+    .enroll-card-stats { display: flex; flex-direction: column; gap: 2px; position: relative; z-index: 2; }
+    .enroll-stat-row { display: flex; align-items: center; justify-content: space-between; }
+    .enroll-stat-label { font-size: 12px; font-weight: 500; color: #6b7485; line-height: 18px; white-space: nowrap; }
+    .enroll-stat-value { font-size: 16px; font-weight: 700; color: #0f1621; line-height: 22px; }
+    .enroll-stat-value.large {
+      font-size: 24px; line-height: 32px;
+      display: flex; align-items: center; gap: 2px;
+    }
+    .enroll-stat-value.large img { width: 16px; height: 16px; }
+    .enroll-card-footer {
+      background: #e5e9f0;
+      border-radius: 0 0 12px 12px;
+      padding: 24px 24px 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      z-index: 1;
+    }
+    .enroll-card-footer p {
+      flex: 1;
+      font-size: 12px; font-weight: 500; color: #6b7485; line-height: 18px;
+    }
+    .enroll-card-footer p strong { font-weight: 700; color: #0f1621; }
+    .enroll-card-footer img { width: 16px; height: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Activity table (post-verification) ── */
+    .activity-section {
+      display: none;
+      background: #f7f9fa;
+      border-radius: 24px;
+      padding: 24px;
+      flex-direction: column;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+    .activity-section.visible { display: flex; }
+    .activity-section-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      height: 40px;
+    }
+    .activity-section-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .activity-section-filters { display: flex; gap: 12px; }
+    .activity-section-filter {
+      height: 40px;
+      background: #e5e9f0;
+      border-radius: 8px;
+      border: none;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: #9ba3b3;
+      cursor: default;
+    }
+    .activity-section-filter.search { width: 230px; }
+    .activity-section-filter.type { width: 160px; }
+    .activity-section-filter.period { width: 160px; }
+    .activity-section-filter svg,
+    .activity-section-filter img { flex-shrink: 0; margin-left: auto; }
+    .activity-section-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+    }
+    .activity-section-empty img { width: 72px; height: 72px; }
+    .activity-section-empty-title {
+      font-size: 16px; font-weight: 700; color: #0f1621;
+      line-height: 22px; text-align: center;
+    }
+    .activity-section-empty-sub {
+      font-size: 16px; font-weight: 400; color: #0f1621;
+      line-height: 22px; text-align: center;
     }
     .enrollment-empty {
       display: flex;
@@ -811,7 +960,7 @@
       </div>
 
       <!-- Cards carousel -->
-      <div class="cards-section">
+      <div class="cards-section" id="cardsSection">
         <div class="banner-card">
           <div class="banner-card-content">
             <div class="banner-card-text">
@@ -849,13 +998,76 @@
 
       <!-- My Enrollment -->
       <div class="enrollment-section">
-        <div class="enrollment-header">My Enrollment</div>
-        <div class="enrollment-empty">
+        <div class="enrollment-header">
+          <span class="enrollment-header-title">My Enrollment</span>
+          <button class="view-all-btn" id="viewAllBtn" style="display:none;">View All Enrollments</button>
+        </div>
+
+        <!-- Empty state (pre-verification) -->
+        <div class="enrollment-empty" id="enrollmentEmpty">
           <img src="assets/images/no_expenses.svg" alt="No enrollments"/>
           <div class="enrollment-empty-text">
             <span class="empty-title">There are no Enrollments yet</span>
             <span class="empty-sub">Enrollments will be added soon</span>
           </div>
+        </div>
+
+        <!-- Enrollment card (post-verification) -->
+        <div class="enrollment-card-wrapper" id="enrollmentCard">
+          <div class="enroll-card" onclick="window.location.href='hsa-account.html'" style="cursor:pointer;">
+            <div class="enroll-card-info">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <circle cx="10" cy="10" r="9" stroke="#b8bfcc" stroke-width="1.5"/>
+                <path d="M10 9v5" stroke="#b8bfcc" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="10" cy="6.5" r="0.75" fill="#b8bfcc"/>
+              </svg>
+            </div>
+            <img class="enroll-card-watermark" src="assets/images/hsa_watermark.svg" alt=""/>
+            <img class="enroll-card-icon" src="assets/images/hsa_icon.svg" alt="HSA"/>
+            <div class="enroll-card-name">Health Savings Account</div>
+            <div class="enroll-card-stats">
+              <div class="enroll-stat-row">
+                <span class="enroll-stat-label">Election</span>
+                <span class="enroll-stat-value">$0.00</span>
+              </div>
+              <div class="enroll-stat-row">
+                <span class="enroll-stat-label">Available balance</span>
+                <span class="enroll-stat-value large">$0.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="enroll-card-footer">
+            <p>Submit expenses with dates of service between <strong>01/16/2026 – 12/16/2026</strong> until <strong>12/31/2026</strong></p>
+            <img src="assets/icons/info.svg" alt="Info"/>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity table (post-verification) -->
+      <div class="activity-section" id="activitySection">
+        <div class="activity-section-header">
+          <span class="activity-section-title">Activity</span>
+          <div class="activity-section-filters">
+            <div class="activity-section-filter search">
+              Search
+              <img src="assets/icons/search_disabled.svg" alt="" style="width:24px;height:24px;"/>
+            </div>
+            <div class="activity-section-filter type">
+              Type: All
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M4 6l4 4 4-4" stroke="#9ba3b3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="activity-section-filter period">
+              Period: All
+              <img src="assets/icons/calendar_disabled.svg" alt="" style="width:24px;height:24px;"/>
+            </div>
+          </div>
+        </div>
+        <div class="activity-section-empty">
+          <img src="assets/icons/no_activities.svg" alt="No activities"/>
+          <div class="activity-section-empty-title">There are no Activities yet</div>
+          <div class="activity-section-empty-sub">Activities will be added to this list as soon as you make your first spending.</div>
         </div>
       </div>
 
@@ -967,6 +1179,11 @@
   if (localStorage.getItem('identityVerified') === 'true') {
     document.getElementById('verifyBanner').style.display = 'none';
     document.getElementById('restartBtn').style.display = 'inline';
+    document.getElementById('cardsSection').style.display = 'none';
+    document.getElementById('enrollmentEmpty').style.display = 'none';
+    document.getElementById('enrollmentCard').classList.add('visible');
+    document.getElementById('viewAllBtn').style.display = 'inline';
+    document.getElementById('activitySection').classList.add('visible');
   }
 
   function openVerifyModal() {
