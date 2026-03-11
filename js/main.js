@@ -30,14 +30,13 @@ function goNext() {
   }
   clearInterval(timerInterval);
 
-  const allLast = ['q1', 'q2', 'q3', 'q4'].every(
-    name => document.querySelector(`input[name="${name}"]:checked`).value === 'd'
+  const allFirst = ['q1', 'q2', 'q3', 'q4'].every(
+    name => document.querySelector(`input[name="${name}"]:checked`).value === 'a'
   );
 
-  if (allLast) {
-    localStorage.setItem('identityVerified', 'true');
-    document.getElementById('verifiedOverlay').classList.add('active');
-    document.getElementById('verifiedPopup').classList.add('active');
+  if (allFirst) {
+    document.getElementById('modalOverlay').classList.add('active');
+    document.getElementById('hsaModal').classList.add('active');
     document.body.style.overflow = 'hidden';
   } else {
     window.location.href = 'document-upload.html';
