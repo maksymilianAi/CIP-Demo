@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Document Upload</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .hero-section {
+      height: 450px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #fff;
+    }
+    .hero-bg {
+      position: absolute;
+      width: 1249px;
+      height: 1139px;
+      left: -40px;
+      top: -649px;
+      display: block;
+      max-width: none;
+    }
+    .hero-gradient {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 111px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #fff);
+      pointer-events: none;
+    }
+    .hero-content {
+      position: absolute;
+      left: 11px;
+      bottom: 50px;
+      width: 457px;
+      display: flex;
+      flex-direction: column;
+      gap: 34px;
+    }
+    .hero-text {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+      color: #0a15a9;
+    }
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.44px;
+      line-height: normal;
+    }
+    .hero-subtitle {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.14px;
+      line-height: normal;
+    }
+    .hero-arrow-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 50px;
+      background: #0a15a9;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      padding: 8px;
+    }
+    .disclaimer {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7485;
+      line-height: 18px;
+    }
+    @media (max-width: 768px) {
+      .hero-section { height: 320px; }
+      .hero-bg { width: 900px; height: 820px; left: -30px; top: -470px; }
+      .hero-content { width: 90%; left: 12px; }
+      .hero-title { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></div>
+  <a class="nav-item" href="home.html">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a class="back-btn" href="home.html">
+        <img src="assets/icons/back_arrow.svg" alt=""/>
+        Back
+      </a>
+      <div class="breadcrumb-pill">
+        <a class="brand-logo" href="home.html" style="text-decoration:none;">
+          <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          Home
+        </a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Document Upload</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">
+        <img src="assets/icons/notifications.svg" alt="Notifications"/>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">LS</div>
+    </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <div class="page-header">
+        <h1>We need a little more information</h1>
+        <p class="subtitle">In order to establish your HSA, we are required to verify your identity.</p>
+      </div>
+
+      <div class="hero-section">
+        <img class="hero-bg" src="assets/images/hero_bg.svg" alt=""/>
+        <div class="hero-gradient"></div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <div class="hero-title">Let's get you verified.</div>
+            <div class="hero-subtitle">You're just a few steps away from completing your identity verification.</div>
+          </div>
+          <button class="hero-arrow-btn" aria-label="Continue" onclick="window.location.href='identity-select.html'">
+            <img src="assets/icons/big_arrow.svg" alt=""/>
+          </button>
+        </div>
+      </div>
+
+      <p class="disclaimer">To help the government fight the funding of terrorism and money laundering activities, federal law requires all financial institutions to obtain, verify, and record information that identifies each person who opens an account. What this means for you: When you open an account, we will use the information provided to us from your employer such as your name, address, date of birth, and other information that will allow us to identify you. We may also ask to see your driver's license and other identifying documents.</p>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+</body>
+</html>

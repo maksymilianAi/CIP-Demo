@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Select Identification</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    /* ── Verification section card ── */
+    .verification-section {
+      background: #f8f9fa;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      padding: 35px 26px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 21px;
+    }
+    .verification-section .section-bg {
+      position: absolute;
+      width: 1245px;
+      height: 1292px;
+      left: -40px;
+      top: -649px;
+      pointer-events: none;
+      display: block;
+      max-width: none;
+    }
+    .verification-section > * { position: relative; z-index: 1; }
+
+    /* ── "Few steps away" header ── */
+    .steps-header {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      color: #0a15a9;
+    }
+    .steps-header-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: -0.51px;
+      line-height: normal;
+    }
+    .steps-header-sub {
+      font-size: 10px;
+      font-weight: 400;
+      letter-spacing: -0.2px;
+      line-height: normal;
+    }
+
+    /* ── Step rows ── */
+    .step-row {
+      border-radius: 3px;
+      border: 2px solid #0a15a9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 12px 0 30px;
+      height: 67px;
+      flex-shrink: 0;
+    }
+    .step-row-completed { background: #f2f4f8; }
+    .step-row-active { background: #fff; flex-direction: column; height: 380px; padding: 13px 12px 28px 30px; align-items: stretch; }
+
+    .step-info { display: flex; flex-direction: column; gap: 2px; color: #0a15a9; }
+    .step-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: -0.6px;
+      line-height: normal;
+      text-transform: uppercase;
+    }
+    .step-desc {
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: -0.7px;
+      line-height: normal;
+      white-space: nowrap;
+    }
+    .step-icon { width: 36px; height: 36px; flex-shrink: 0; }
+
+    /* ── Step 2 header row ── */
+    .step2-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* ── ID cards grid ── */
+    .id-cards-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin-top: 43px;
+      margin-bottom: 80px;
+    }
+
+    .id-card-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      width: 216px;
+      cursor: pointer;
+    }
+
+    .id-card {
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0px 1px 2px 0px #b0c5f7;
+      width: 100%;
+      height: 169px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid transparent;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      overflow: hidden;
+    }
+
+    .id-card img {
+      width: 136px;
+      height: 90px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .id-card-wrapper:not(.selected-wrapper):hover .id-card {
+      border-color: #b0c5f7;
+    }
+
+    .id-card.selected {
+      border-color: #0a15a9;
+      box-shadow: 0px 2px 8px 0px #b0c5f7;
+    }
+
+    .id-card-label {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0a15a9;
+      text-align: center;
+      letter-spacing: -0.64px;
+      line-height: normal;
+    }
+
+    /* ── Verify Me button ── */
+    .verify-btn-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+    .verify-btn {
+      width: 127px;
+      height: 41px;
+      border-radius: 4px;
+      border: 2px solid #cbdffc;
+      background: #fff;
+      color: #cbdffc;
+      font-size: 12px;
+      font-weight: 700;
+      font-family: inherit;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .verify-btn.active {
+      border-color: #0a15a9;
+      color: #0a15a9;
+      cursor: pointer;
+    }
+    .verify-btn.active:hover {
+      background: #0a15a9;
+      color: #fff;
+    }
+
+    .disclaimer {
+      font-size: 12px;
+      font-weight: 500;
+      color: #6b7485;
+      line-height: 18px;
+    }
+
+    /* ── Modal overlay ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0f1621;
+      opacity: 0.5;
+      z-index: 200;
+    }
+    .modal-overlay.active { display: block; }
+
+    /* ── Modal ── */
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 201;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal.active { display: flex; }
+
+    .modal-card {
+      background: #fff;
+      border-radius: 24px;
+      width: 720px;
+      max-width: calc(100vw - 40px);
+      padding: 48px 24px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      position: relative;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-close img { width: 24px; height: 24px; display: block; }
+
+    .modal-icon { width: 48px; height: 48px; display: block; }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 32px;
+      text-align: center;
+    }
+
+    .modal-btn {
+      width: 200px;
+      height: 40px;
+      background: #176af6;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .modal-btn:hover { background: #1257cc; }
+
+    @media (max-width: 900px) {
+      .id-cards-grid { gap: 20px; }
+      .id-card-wrapper { width: 160px; }
+      .id-card { height: 130px; }
+      .id-card img { width: 100px; height: 68px; }
+    }
+    @media (max-width: 768px) {
+      .id-cards-grid { flex-direction: column; align-items: center; gap: 16px; }
+      .id-card-wrapper { width: 90%; max-width: 280px; }
+      .id-card { height: 150px; }
+      .verification-section { padding: 20px 16px 20px; }
+      .step-row { padding: 0 10px 0 16px; }
+      .step-row-active { padding: 13px 10px 22px 16px; }
+      .step-desc { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></div>
+  <a class="nav-item" href="home.html">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a class="back-btn" href="home.html">
+        <img src="assets/icons/back_arrow.svg" alt=""/>
+        Back
+      </a>
+      <div class="breadcrumb-pill">
+        <a class="brand-logo" href="home.html" style="text-decoration:none;">
+          <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          Home
+        </a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Verification Questions</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">
+        <img src="assets/icons/notifications.svg" alt="Notifications"/>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">LS</div>
+    </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <div class="page-header">
+        <h1>We need a little more information</h1>
+        <p class="subtitle">In order to establish your HSA, we are required to verify your identity.</p>
+      </div>
+
+      <div class="verification-section">
+        <img class="section-bg" src="assets/images/hero_bg_yellow.svg" alt=""/>
+
+        <div class="steps-header">
+          <div class="steps-header-title">You're just a few steps away.</div>
+          <div class="steps-header-sub">Please follow the steps below to complete your verification.</div>
+        </div>
+
+        <!-- Step 1: completed -->
+        <div class="step-row step-row-completed">
+          <div class="step-info">
+            <span class="step-label">Step 1</span>
+            <span class="step-desc">Select Your Country. (USA)</span>
+          </div>
+          <img class="step-icon" src="assets/icons/blue_check.svg" alt="Completed"/>
+        </div>
+
+        <!-- Step 2: expanded -->
+        <div class="step-row step-row-active">
+          <div class="step2-header">
+            <div class="step-info">
+              <span class="step-label">Step 2</span>
+              <span class="step-desc">Select the identification you want to use.</span>
+            </div>
+            <img class="step-icon" src="assets/icons/blue_arrow.svg" alt=""/>
+          </div>
+
+          <div class="id-cards-grid">
+
+            <div class="id-card-wrapper" onclick="selectId(this, 'drivers-license')">
+              <div class="id-card" id="card-drivers-license">
+                <img src="assets/images/driver_license.png" alt="Driver's License"/>
+              </div>
+              <span class="id-card-label">Driver's License</span>
+            </div>
+
+            <div class="id-card-wrapper" onclick="selectId(this, 'identification-card')">
+              <div class="id-card" id="card-identification-card">
+                <img src="assets/images/identification_card.png" alt="Identification Card"/>
+              </div>
+              <span class="id-card-label">Identification Card</span>
+            </div>
+
+            <div class="id-card-wrapper" onclick="selectId(this, 'passport')">
+              <div class="id-card" id="card-passport">
+                <img src="assets/images/passport.png" alt="Passport"/>
+              </div>
+              <span class="id-card-label">Passport</span>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="verify-btn-row">
+          <button class="verify-btn" id="verifyBtn" disabled onclick="handleVerify()">Verify Me</button>
+        </div>
+      </div>
+
+      <p class="disclaimer">To help the government fight the funding of terrorism and money laundering activities, federal law requires all financial institutions to obtain, verify, and record information that identifies each person who opens an account. What this means for you: When you open an account, we will use the information provided to us from your employer such as your name, address, date of birth, and other information that will allow us to identify you. We may also ask to see your driver's license and other identifying documents.</p>
+
+    </div>
+  </div>
+</div>
+
+<!-- Modal overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()"></div>
+
+<!-- Modal -->
+<div class="modal" id="hsaModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">
+      <img src="assets/icons/close.svg" alt="Close"/>
+    </button>
+    <img class="modal-icon" src="assets/icons/sucess.svg" alt="Success"/>
+    <p class="modal-title">Your HSA is now active!</p>
+    <button class="modal-btn" onclick="completeVerification()">Got It!</button>
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+<script>
+  let selectedMethod = null;
+
+  function selectId(wrapper, method) {
+    // Deselect all
+    document.querySelectorAll('.id-card').forEach(c => c.classList.remove('selected'));
+    document.querySelectorAll('.id-card-wrapper').forEach(w => w.classList.remove('selected-wrapper'));
+
+    // Select clicked
+    const card = wrapper.querySelector('.id-card');
+    card.classList.add('selected');
+    wrapper.classList.add('selected-wrapper');
+    selectedMethod = method;
+
+    // Activate Verify Me button
+    const btn = document.getElementById('verifyBtn');
+    btn.classList.add('active');
+    btn.disabled = false;
+  }
+
+  function handleVerify() {
+    if (!selectedMethod) return;
+    document.getElementById('modalOverlay').classList.add('active');
+    document.getElementById('hsaModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.getElementById('hsaModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function completeVerification() {
+    localStorage.setItem('identityVerified', 'true');
+    window.location.href = 'home.html';
+  }
+</script>
+</body>
+</html>

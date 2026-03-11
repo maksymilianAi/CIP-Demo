@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Verification Question</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></div>
+  <a class="nav-item" href="home.html">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a class="back-btn" href="home.html">
+        <img src="assets/icons/back_arrow.svg" alt=""/>
+        Back
+      </a>
+      <div class="breadcrumb-pill">
+        <a class="brand-logo" href="home.html" style="text-decoration:none;">
+          <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          Home
+        </a>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Verification Questions</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">
+        <img src="assets/icons/notifications.svg" alt="Notifications"/>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">LS</div>
+    </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <div class="page-header">
+        <h1>We need a little more information</h1>
+        <p class="subtitle">In order to establish your HSA, we are required to verify your identity.</p>
+      </div>
+
+      <div class="timer-bar">
+        <img src="assets/icons/timer.svg" alt=""/>
+        <span class="timer-display" id="timer">03:00</span>
+        <span class="timer-label">Remaining time to complete questions</span>
+      </div>
+
+      <div class="questions-wrapper">
+        <div class="question-card">
+          <div class="question-text">At which of the following addresses have you lived?</div>
+          <div class="options">
+            <div class="option"><label class="radio-label"><input type="radio" name="q1" value="a"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">1084 Bpeachtree CT</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q1" value="b"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">113 Birch DR</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q1" value="c"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">16015 Racetrack RD</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q1" value="d"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">None of the above</span></div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">From whom did you purchase the property at 222333 Peachtree place?</div>
+          <div class="options">
+            <div class="option"><label class="radio-label"><input type="radio" name="q2" value="a"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">Chris Thomas</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q2" value="b"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">Elaine Ryan</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q2" value="c"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">Joe Anderson</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q2" value="d"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">None of the above</span></div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">When did you purchase the property at Peachtree place?</div>
+          <div class="options">
+            <div class="option"><label class="radio-label"><input type="radio" name="q3" value="a"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">August 1999</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q3" value="b"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">April 1999</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q3" value="c"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">April 2000</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q3" value="d"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">None of the above</span></div>
+          </div>
+        </div>
+
+        <div class="question-card">
+          <div class="question-text">Which person is not a relative or someone that you know?</div>
+          <div class="options">
+            <div class="option"><label class="radio-label"><input type="radio" name="q4" value="a"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">David Brown</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q4" value="b"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">Cassey Smith</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q4" value="c"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">Anthony Brown</span></div>
+            <div class="option"><label class="radio-label"><input type="radio" name="q4" value="d"/><div class="radio-circle"><div class="radio-inner"></div></div></label><span class="option-label">None of the above</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-actions">
+        <p class="error-msg" id="errorMsg">Please fill in the following answers.</p>
+        <div class="footer-buttons">
+          <button class="btn btn-outline" onclick="window.location.href='home.html'">Later</button>
+          <button class="btn btn-primary" onclick="goNext()">Next</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

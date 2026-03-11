@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Home</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+
+    /* ── Welcome card ── */
+    .welcome-card {
+      background: #f7f9fa;
+      border-radius: 24px;
+      height: 258px;
+      overflow: hidden;
+      position: relative;
+      display: flex;
+      flex-shrink: 0;
+    }
+    .welcome-left {
+      width: 508px;
+      height: 100%;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding-left: 48px;
+    }
+    .welcome-circles {
+      position: absolute;
+      width: 420px;
+      height: auto;
+      left: 44px;
+      bottom: 0;
+      pointer-events: none;
+    }
+    .welcome-text {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .welcome-text .greeting {
+      font-size: 16px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .welcome-text .name {
+      font-size: 32px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 44px;
+    }
+
+    /* ── Notification block ── */
+    .notif-block {
+      flex: 1;
+      position: relative;
+      padding: 0 77px 24px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+    .notif-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+      flex-shrink: 0;
+    }
+    .notif-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .notif-header-left img { width: 24px; height: 24px; }
+    .notif-header-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+      white-space: nowrap;
+    }
+    .notif-all-link {
+      font-size: 14px;
+      font-weight: 400;
+      color: #9ba3b3;
+      line-height: 20px;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+    .notif-body {
+      background: #fff;
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .notif-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding-top: 16px;
+    }
+    .notif-empty img { width: 38px; height: 38px; }
+    .notif-empty span {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 20px;
+    }
+
+    /* Carousel nav pill (vertical) */
+    .carousel-nav {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-30%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      background: #fff;
+      border: 1px solid #e5e9f0;
+      border-radius: 32px;
+      padding: 4px;
+    }
+    .carousel-nav-btn {
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+    .carousel-nav-btn img { width: 24px; height: 24px; display: block; }
+    .carousel-nav-btn:hover:not(.disabled) { background: #f7f9fa; }
+    .carousel-nav-btn.disabled { cursor: default; pointer-events: none; }
+
+    /* ── Warning info banner ── */
+    .info-banner {
+      background: #fef9eb;
+      border: 1px solid #fdecc0;
+      border-radius: 12px;
+      padding: 24px 32px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+    .info-banner-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .info-banner-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .info-banner-header img { width: 24px; height: 24px; flex-shrink: 0; }
+    .info-banner-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .info-banner-sub {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 20px;
+    }
+    .info-banner-btn {
+      width: 180px;
+      height: 44px;
+      background: #3f68ff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.15s;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .info-banner-btn:hover { background: #2f4bc4; }
+
+    /* ── Cards carousel section ── */
+    .cards-section {
+      background: #f7f9fa;
+      border-radius: 24px;
+      height: 316px;
+      overflow: hidden;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    /* Banner card inside carousel */
+    .banner-card {
+      position: absolute;
+      left: 24px;
+      top: 24px;
+      right: 77px;
+      background: #fff;
+      border: 1px solid #eef1f4;
+      border-radius: 12px;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .banner-card-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .banner-card-text { display: flex; flex-direction: column; gap: 8px; }
+    .banner-card-title {
+      font-size: 24px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 32px;
+    }
+    .banner-card-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 20px;
+    }
+    .banner-card-btns { display: flex; gap: 12px; align-items: center; }
+    .btn-primary-sm {
+      width: 180px;
+      height: 40px;
+      background: #3f68ff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-primary-sm:hover { background: #2f4bc4; }
+    .btn-outline-sm {
+      width: 180px;
+      height: 40px;
+      background: #fff;
+      border: 2px solid #e5e9f0;
+      border-radius: 8px;
+      color: #9ba3b3;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .banner-card-illustration {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+    .cards-end-label {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b7485;
+      white-space: nowrap;
+    }
+
+    /* Carousel nav (vertical, right side of cards section) */
+    .cards-carousel-nav {
+      position: absolute;
+      right: 18px;
+      top: calc(50% - 16px);
+      transform: translateY(-50%);
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .cards-carousel-pill {
+      background: #fff;
+      border: 1px solid #e5e9f0;
+      border-radius: 32px;
+      padding: 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+    }
+    .cards-carousel-counter {
+      font-size: 12px;
+      font-weight: 500;
+      color: #9ba3b3;
+      line-height: 18px;
+      text-align: center;
+      padding: 4px 0;
+      min-width: 36px;
+    }
+    .pause-btn {
+      width: 24px;
+      height: 24px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 4px;
+    }
+    .pause-btn img { width: 24px; height: 24px; display: block; }
+
+    /* ── My Enrollment section ── */
+    .enrollment-section {
+      background: #f7f9fa;
+      border-radius: 24px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      flex-shrink: 0;
+    }
+    .enrollment-header {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+    }
+    .enrollment-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 12px;
+    }
+    .enrollment-empty img { width: 72px; height: 72px; }
+    .enrollment-empty-text {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+    }
+    .enrollment-empty-text .empty-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .enrollment-empty-text .empty-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 22px;
+    }
+
+    /* ── Separator ── */
+    .home-separator {
+      height: 1px;
+      background: #e5e9f0;
+      flex-shrink: 0;
+    }
+
+    /* ── Disclosure ── */
+    .disclosure {
+      font-size: 14px;
+      font-weight: 400;
+      color: #6b7485;
+      line-height: 20px;
+    }
+
+    /* ── Home header breadcrumb override ── */
+    .bc-home-active {
+      color: #9ba3b3;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    /* ── Verify Identity modal ── */
+    .vi-modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: #0f1621;
+      opacity: 0.5;
+      z-index: 200;
+    }
+    .vi-modal-overlay.active { display: block; }
+
+    .vi-modal-wrap {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 201;
+      align-items: flex-start;
+      justify-content: center;
+      overflow-y: auto;
+      padding: 40px 16px;
+    }
+    .vi-modal-wrap.active { display: flex; }
+
+    .vi-modal {
+      background: #fff;
+      border-radius: 24px;
+      width: 720px;
+      max-width: 100%;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      padding: 48px 24px 24px;
+      gap: 32px;
+    }
+
+    .vi-modal-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 24px; height: 24px;
+      background: none; border: none;
+      cursor: pointer; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .vi-modal-close img { width: 24px; height: 24px; }
+
+    .vi-modal-title {
+      font-size: 40px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 44px;
+      text-align: center;
+    }
+
+    /* Sections wrapper */
+    .vi-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Dark blue "Why We're Asking" card */
+    .vi-why-card {
+      background: #142641;
+      border-radius: 8px;
+      padding: 54px 32px 0;
+      height: 385px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      overflow: hidden;
+    }
+    .vi-why-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      width: 100%;
+    }
+    .vi-why-text {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      width: 100%;
+      text-align: center;
+    }
+    .vi-why-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 44px;
+    }
+    .vi-why-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.75);
+      line-height: 20px;
+    }
+    .vi-why-btn {
+      width: 280px;
+      height: 54px;
+      background: #3f68ff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.15s;
+      flex-shrink: 0;
+    }
+    .vi-why-btn:hover { background: #2f4bc4; }
+    .vi-why-illustration {
+      display: block;
+      width: 280px;
+      flex-shrink: 0;
+    }
+
+    /* Two info cards */
+    .vi-info-cards {
+      display: flex;
+      gap: 12px;
+    }
+    .vi-info-card {
+      flex: 1;
+      height: 404px;
+      border-radius: 8px;
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow: hidden;
+    }
+    .vi-info-card.blue { background: #6C9EE8; }
+    .vi-info-card.green { background: #025248; }
+    .vi-info-card > img { width: 72px; height: 72px; flex-shrink: 0; }
+    .vi-info-card-text { display: flex; flex-direction: column; gap: 12px; }
+    .vi-info-card-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 44px;
+    }
+    .vi-info-card-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 20px;
+    }
+    .vi-check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 0; padding: 0;
+    }
+    .vi-check-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.85);
+      line-height: 20px;
+    }
+    .vi-check-list li img { width: 16px; height: 16px; flex-shrink: 0; margin-top: 2px; }
+
+    /* FAQ accordions */
+    .vi-faq { display: flex; flex-direction: column; gap: 12px; }
+    .vi-faq-item {
+      border: 2px solid #eef1f4;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .vi-faq-btn {
+      width: 100%;
+      background: #fff;
+      border: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 2px;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      color: rgba(0,0,0,0.8);
+      text-align: left;
+    }
+    .vi-faq-btn img {
+      width: 24px; height: 24px; flex-shrink: 0;
+      transform: rotate(180deg);
+      transition: transform 0.2s;
+    }
+    .vi-faq-btn.open img { transform: rotate(0deg); }
+
+    /* Bottom CTA */
+    .vi-start-btn {
+      width: 100%;
+      height: 54px;
+      background: #3f68ff;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .vi-start-btn:hover { background: #2f4bc4; }
+
+    @media (max-width: 1024px) {
+      .welcome-card { height: auto; flex-direction: column; }
+      .welcome-left { width: 100%; height: 180px; }
+      .notif-block { padding: 16px; padding-right: 60px; height: 260px; }
+      .banner-card { flex-direction: column; height: auto; }
+      .cards-section { height: auto; min-height: 316px; }
+      .banner-card-illustration { width: 120px; height: 120px; }
+    }
+    @media (max-width: 768px) {
+      .banner-card { padding: 16px; }
+      .banner-card-btns { flex-direction: column; width: 100%; }
+      .btn-primary-sm, .btn-outline-sm { width: 100%; }
+      .info-banner { flex-direction: column; }
+      .info-banner-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></div>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-left">
+        <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="breadcrumb-pill">
+          <span class="brand-logo">
+            <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          </span>
+          <span class="bc-home-active">Home</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="notif-btn">
+          <img src="assets/icons/notifications.svg" alt="Notifications"/>
+          <div class="notif-dot"></div>
+        </div>
+        <div class="avatar">LS</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <!-- Welcome card -->
+      <div class="welcome-card">
+        <div class="welcome-left">
+          <img class="welcome-circles" src="assets/images/circles_bg.svg" alt=""/>
+          <div class="welcome-text">
+            <span class="greeting">Welcome,</span>
+            <span class="name">Linda!</span>
+          </div>
+        </div>
+
+        <div class="notif-block">
+          <div class="notif-header">
+            <div class="notif-header-left">
+              <img src="assets/icons/notifications_blue.svg" alt=""/>
+              <span class="notif-header-title">Recent Notifications</span>
+            </div>
+            <a class="notif-all-link" href="#">All Notifications (0)</a>
+          </div>
+          <div class="notif-body">
+            <div class="notif-empty">
+              <img src="assets/icons/notifications_disabled.svg" alt=""/>
+              <span>There are no notifications yet</span>
+            </div>
+          </div>
+
+          <!-- Carousel nav -->
+          <div class="carousel-nav">
+            <button class="carousel-nav-btn disabled">
+              <img src="assets/icons/disabled_arrow.svg" alt="Previous"/>
+            </button>
+            <button class="carousel-nav-btn disabled">
+              <img src="assets/icons/disabled_arrow.svg" alt="Next" style="transform: rotate(180deg);"/>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identity verification banner -->
+      <div class="info-banner" id="verifyBanner">
+        <div class="info-banner-text">
+          <div class="info-banner-header">
+            <img src="assets/icons/warning.svg" alt=""/>
+            <span class="info-banner-title">We need to verify your identity to establish your HSA</span>
+          </div>
+          <p class="info-banner-sub">With just a few extra details we can activate your account.</p>
+        </div>
+        <button class="info-banner-btn" onclick="openVerifyModal()">Verify Identity</button>
+      </div>
+
+      <!-- Cards carousel -->
+      <div class="cards-section">
+        <div class="banner-card">
+          <div class="banner-card-content">
+            <div class="banner-card-text">
+              <div class="banner-card-title">Important Changes to Your HSA</div>
+              <div class="banner-card-desc">
+                <p>We noticed you recently separated from your employer.</p>
+                <p>Don't worry! You still have access to your old employer sponsored account.</p>
+              </div>
+            </div>
+            <div class="banner-card-btns">
+              <button class="btn-primary-sm">Show Me How</button>
+              <button class="btn-outline-sm">Dismiss</button>
+            </div>
+          </div>
+          <img class="banner-card-illustration" src="assets/images/hsa_card.svg" alt="HSA Card"/>
+        </div>
+
+        <span class="cards-end-label">End of the list</span>
+
+        <!-- Carousel nav right side -->
+        <div class="cards-carousel-nav">
+          <div class="cards-carousel-pill">
+            <button class="carousel-nav-btn disabled">
+              <img src="assets/icons/disabled_arrow.svg" alt="Previous"/>
+            </button>
+            <button class="carousel-nav-btn disabled">
+              <img src="assets/icons/disabled_arrow.svg" alt="Next" style="transform: rotate(180deg);"/>
+            </button>
+          </div>
+          <button class="pause-btn">
+            <img src="assets/icons/pause.svg" alt="Pause"/>
+          </button>
+        </div>
+      </div>
+
+      <!-- My Enrollment -->
+      <div class="enrollment-section">
+        <div class="enrollment-header">My Enrollment</div>
+        <div class="enrollment-empty">
+          <img src="assets/images/no_expenses.svg" alt="No enrollments"/>
+          <div class="enrollment-empty-text">
+            <span class="empty-title">There are no Enrollments yet</span>
+            <span class="empty-sub">Enrollments will be added soon</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Separator -->
+      <div class="home-separator"></div>
+
+      <!-- Disclosure -->
+      <div style="display:flex;align-items:center;gap:12px;">
+        <p class="disclosure">Funds in an HSA Deposit Account are held at UMB Bank, n.a., Member FDIC.</p>
+        <button id="restartBtn" onclick="restartFlow()" style="display:none;background:none;border:none;cursor:pointer;font-family:'Inter',sans-serif;font-size:14px;font-weight:400;color:#6b7485;padding:0;white-space:nowrap;line-height:20px;">Restart</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Verify Identity modal overlay -->
+<div class="vi-modal-overlay" id="viOverlay" onclick="closeVerifyModal()"></div>
+
+<!-- Verify Identity modal -->
+<div class="vi-modal-wrap" id="viModal">
+  <div class="vi-modal">
+
+    <!-- Close -->
+    <button class="vi-modal-close" onclick="closeVerifyModal()" aria-label="Close">
+      <img src="assets/icons/close.svg" alt="Close"/>
+    </button>
+
+    <!-- Title -->
+    <h2 class="vi-modal-title">Verify Identity</h2>
+
+    <!-- Sections -->
+    <div class="vi-sections">
+
+      <!-- Why We're Asking card -->
+      <div class="vi-why-card">
+        <div class="vi-why-inner">
+          <div class="vi-why-text">
+            <div class="vi-why-title">Why We're Asking</div>
+            <p class="vi-why-desc">To open your HSA, we're required to verify identity. This helps protect your account and is part of federal requirements under the USA PATRIOT Act.</p>
+          </div>
+          <button class="vi-why-btn" onclick="startVerification()">Start Verification</button>
+        </div>
+        <img class="vi-why-illustration" src="assets/images/pop_up_why_were_asking.svg" alt=""/>
+      </div>
+
+      <!-- Info cards -->
+      <div class="vi-info-cards">
+        <div class="vi-info-card blue">
+          <img src="assets/images/pop_up_big_check_required.svg" alt=""/>
+          <div class="vi-info-card-text">
+            <div class="vi-info-card-title">Required Action</div>
+            <p class="vi-info-card-desc">Answer a few quick questions about yourself, or upload an identification document.<br/>Both options are fast and secure.</p>
+          </div>
+        </div>
+        <div class="vi-info-card green">
+          <img src="assets/images/pop_up_lock_why_this_matters.svg" alt=""/>
+          <div class="vi-info-card-text">
+            <div class="vi-info-card-title">Why This Matters</div>
+            <ul class="vi-check-list">
+              <li><img src="assets/icons/check_white_for_pop_up.svg" alt=""/>Required by law to open your account</li>
+              <li><img src="assets/icons/check_white_for_pop_up.svg" alt=""/>Help keep your information safe</li>
+              <li><img src="assets/icons/check_white_for_pop_up.svg" alt=""/>Takes a minute to complete</li>
+              <li><img src="assets/icons/check_white_for_pop_up.svg" alt=""/>Allows you to receive any employer contributions</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div class="vi-faq">
+      <div class="vi-faq-item">
+        <button class="vi-faq-btn" onclick="toggleFaq(this)">
+          <img src="assets/icons/black_arrow.svg" alt=""/>
+          Is this process secure?
+        </button>
+      </div>
+      <div class="vi-faq-item">
+        <button class="vi-faq-btn" onclick="toggleFaq(this)">
+          <img src="assets/icons/black_arrow.svg" alt=""/>
+          How long does this take?
+        </button>
+      </div>
+      <div class="vi-faq-item">
+        <button class="vi-faq-btn" onclick="toggleFaq(this)">
+          <img src="assets/icons/black_arrow.svg" alt=""/>
+          What happens if I don't do this?
+        </button>
+      </div>
+      <div class="vi-faq-item">
+        <button class="vi-faq-btn" onclick="toggleFaq(this)">
+          <img src="assets/icons/black_arrow.svg" alt=""/>
+          Who do I contact if I have more questions?
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom CTA -->
+    <button class="vi-start-btn" onclick="startVerification()">Start Verification</button>
+
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+<script>
+  if (localStorage.getItem('identityVerified') === 'true') {
+    document.getElementById('verifyBanner').style.display = 'none';
+    document.getElementById('restartBtn').style.display = 'inline';
+  }
+
+  function openVerifyModal() {
+    document.getElementById('viOverlay').classList.add('active');
+    document.getElementById('viModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVerifyModal() {
+    document.getElementById('viOverlay').classList.remove('active');
+    document.getElementById('viModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function restartFlow() {
+    localStorage.removeItem('identityVerified');
+    window.location.href = 'home.html';
+  }
+
+  function startVerification() {
+    window.location.href = 'index.html';
+  }
+
+  function toggleFaq(btn) {
+    btn.classList.toggle('open');
+  }
+</script>
+</body>
+</html>

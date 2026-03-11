@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elevate – Session Timed Out</title>
+  <link rel="icon" href="assets/icons/favicon_breadcrumbs.svg" type="image/svg+xml"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/styles.css"/>
+  <style>
+    .timeout-wrapper {
+      background: #f7f9fa;
+      border-radius: 24px;
+      padding: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .timeout-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      text-align: center;
+    }
+    .timeout-icon {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+    }
+    .timeout-text {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: center;
+      max-width: 558px;
+    }
+    .timeout-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f1621;
+      line-height: 22px;
+    }
+    .timeout-desc {
+      font-size: 14px;
+      font-weight: 400;
+      color: #0f1621;
+      line-height: 20px;
+    }
+    .timeout-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+    .timer-display.urgent { color: #e72626; }
+
+    @media (max-width: 768px) {
+      .timeout-wrapper { padding: 32px 20px; border-radius: 16px; }
+      .timeout-actions .btn { flex: 1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="overlay" onclick="closeSidebar()"></div>
+
+<aside class="sidebar" id="sidebar">
+  <div class="logo"><img src="assets/images/sidebar_nav_logo.svg" alt="Elevate"/></div>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/home.svg" alt=""/>
+    Home
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/expense.svg" alt=""/>
+    Expense Details
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/accounts.svg" alt=""/>
+    My Accounts
+    <img src="assets/icons/arrow.svg" class="chevron" alt=""/>
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/cards.svg" alt=""/>
+    Cards
+  </a>
+  <a class="nav-item" href="#">
+    <img src="assets/icons/documents.svg" alt=""/>
+    My Documents
+  </a>
+  <div class="nav-label">Quick Links</div>
+  <a class="nav-cta-btn" href="#">
+    <img src="assets/icons/reimburse.svg" alt=""/>
+    Use My Money
+  </a>
+
+  <div class="nav-help">
+    <div class="nav-help-item">
+      <img src="assets/icons/schedule.svg" alt=""/>
+      weekdays, 9 AM–6 PM
+    </div>
+    <a class="nav-help-item" href="#">
+      <img src="assets/icons/globe.svg" alt=""/>
+      <span class="nav-help-link">Help Zendesk <img src="assets/icons/open_link.svg" class="open-link" alt=""/></span>
+    </a>
+    <a class="nav-help-item" href="mailto:support@elevate.com">
+      <img src="assets/icons/mail.svg" alt=""/>
+      support@elevate.com
+    </a>
+    <a class="nav-help-item" href="tel:+19999999999">
+      <img src="assets/icons/phone.svg" alt=""/>
+      +1 999 999 9999
+    </a>
+  </div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-inner">
+    <div class="topbar-left">
+      <button class="menu-toggle" onclick="openSidebar()" aria-label="Menu">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <a class="back-btn" href="index.html">
+        <img src="assets/icons/back_arrow.svg" alt=""/>
+        Back
+      </a>
+      <div class="breadcrumb-pill">
+        <span class="brand-logo">
+          <img src="assets/icons/favicon_breadcrumbs.svg" alt=""/>
+          Home
+        </span>
+        <span class="bc-sep">/</span>
+        <span class="bc-current">Verification Questions</span>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="notif-btn">
+        <img src="assets/icons/notifications.svg" alt="Notifications"/>
+        <div class="notif-dot"></div>
+      </div>
+      <div class="avatar">LS</div>
+    </div>
+    </div>
+  </header>
+
+  <div class="content">
+    <div class="content-inner">
+
+      <div class="page-header">
+        <h1>We need a little more information</h1>
+        <p class="subtitle">In order to establish your HSA, we are required to verify your identity.</p>
+      </div>
+
+      <div class="timer-bar">
+        <img src="assets/icons/timer_red.svg" alt=""/>
+        <span class="timer-display urgent">00:00</span>
+        <span class="timer-label">Remaining time to complete questions</span>
+      </div>
+
+      <div class="timeout-wrapper">
+        <div class="timeout-state">
+          <img class="timeout-icon" src="assets/icons/warning.svg" alt=""/>
+          <div class="timeout-text">
+            <div class="timeout-title">Oops!</div>
+            <div class="timeout-desc">Time's up! Do you want to try the verification again?</div>
+          </div>
+          <div class="timeout-actions">
+            <a href="#" class="btn btn-outline">Try Later</a>
+            <a href="index.html" class="btn btn-primary">Retry</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="js/sidebar.js"></script>
+</body>
+</html>
