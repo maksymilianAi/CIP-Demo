@@ -406,9 +406,18 @@
     .enroll-card-info {
       position: absolute;
       top: 23px; right: 23px;
-      width: 24px; height: 24px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex; align-items: center; gap: 8px;
       z-index: 3;
+    }
+    .enroll-card-status {
+      background: #f5b942;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1;
+      padding: 5px 10px;
+      border-radius: 6px;
+      white-space: nowrap;
     }
     .enroll-card-watermark {
       position: absolute;
@@ -959,43 +968,6 @@
         <button class="info-banner-btn" onclick="openVerifyModal()">Verify Identity</button>
       </div>
 
-      <!-- Cards carousel -->
-      <div class="cards-section" id="cardsSection">
-        <div class="banner-card">
-          <div class="banner-card-content">
-            <div class="banner-card-text">
-              <div class="banner-card-title">Important Changes to Your HSA</div>
-              <div class="banner-card-desc">
-                <p>We noticed you recently separated from your employer.</p>
-                <p>Don't worry! You still have access to your old employer sponsored account.</p>
-              </div>
-            </div>
-            <div class="banner-card-btns">
-              <button class="btn-primary-sm">Show Me How</button>
-              <button class="btn-outline-sm">Dismiss</button>
-            </div>
-          </div>
-          <img class="banner-card-illustration" src="assets/images/hsa_card.svg" alt="HSA Card"/>
-        </div>
-
-        <span class="cards-end-label">End of the list</span>
-
-        <!-- Carousel nav right side -->
-        <div class="cards-carousel-nav">
-          <div class="cards-carousel-pill">
-            <button class="carousel-nav-btn disabled">
-              <img src="assets/icons/disabled_arrow.svg" alt="Previous"/>
-            </button>
-            <button class="carousel-nav-btn disabled">
-              <img src="assets/icons/disabled_arrow.svg" alt="Next" style="transform: rotate(180deg);"/>
-            </button>
-          </div>
-          <button class="pause-btn">
-            <img src="assets/icons/pause.svg" alt="Pause"/>
-          </button>
-        </div>
-      </div>
-
       <!-- My Enrollment -->
       <div class="enrollment-section">
         <div class="enrollment-header">
@@ -1004,7 +976,7 @@
         </div>
 
         <!-- Empty state (pre-verification) -->
-        <div class="enrollment-empty" id="enrollmentEmpty">
+        <div class="enrollment-empty" id="enrollmentEmpty" style="display:none;">
           <img src="assets/images/no_expenses.svg" alt="No enrollments"/>
           <div class="enrollment-empty-text">
             <span class="empty-title">There are no Enrollments yet</span>
@@ -1012,10 +984,11 @@
           </div>
         </div>
 
-        <!-- Enrollment card (post-verification) -->
-        <div class="enrollment-card-wrapper" id="enrollmentCard">
-          <div class="enroll-card" onclick="window.location.href='hsa-account.html'" style="cursor:pointer;">
+        <!-- Enrollment card (always visible) -->
+        <div class="enrollment-card-wrapper visible" id="enrollmentCard">
+          <div class="enroll-card" id="enrollCardInner" style="cursor:default;">
             <div class="enroll-card-info">
+              <span class="enroll-card-status" id="pendingCipBadge">Pending CIP</span>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
                 <circle cx="10" cy="10" r="9" stroke="#b8bfcc" stroke-width="1.5"/>
                 <path d="M10 9v5" stroke="#b8bfcc" stroke-width="1.5" stroke-linecap="round"/>
@@ -1179,10 +1152,11 @@
   if (localStorage.getItem('identityVerified') === 'true') {
     document.getElementById('verifyBanner').style.display = 'none';
     document.getElementById('restartBtn').style.display = 'inline';
-    document.getElementById('cardsSection').style.display = 'none';
-    document.getElementById('enrollmentEmpty').style.display = 'none';
-    document.getElementById('enrollmentCard').classList.add('visible');
     document.getElementById('viewAllBtn').style.display = 'inline';
+    document.getElementById('pendingCipBadge').style.display = 'none';
+    var card = document.getElementById('enrollCardInner');
+    card.style.cursor = 'pointer';
+    card.onclick = function() { window.location.href = 'hsa-account.html'; };
     document.getElementById('activitySection').classList.add('visible');
   }
 
